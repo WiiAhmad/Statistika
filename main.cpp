@@ -219,8 +219,8 @@ void groupedData(UngroupedData data[], GroupedData data2[], int n)
     {
         relativeFrequency = (float)data2[i].frequencySum / totalFrequency;
         percentage = relativeFrequency * 100;
-        cout << "Relative Frequency : " << relativeFrequency << endl;
-        cout << "Percentage : " << percentage << endl;
+        cout << "Relative Frequency : " << relativeFrequency;
+        cout << "\tPercentage : " << percentage << endl;
     }
 
     // frekuensi kumulatif
@@ -408,8 +408,9 @@ int main()
 
     cout << "pilih data yang akan dimasukan : \n";
     cout << "1. Ungrouped Data Raw          example : 1 2 3 4 5\n";
-    cout << "2. Ungrouped Data              example class 12 frequency 2\n";
-    cout << "3. Grouped Data                this have start class, end class and frequencySum\n";
+    cout << "2. Ungrouped Data with Freq to Grouped    example : 1 2 3 4 5\n";
+    cout << "3. Ungrouped Data              example class 12 frequency 2\n";
+    cout << "4. Grouped Data                this have start class, end class and frequencySum\n";
 
     int choice, n = 0;
     float score;
@@ -456,6 +457,41 @@ int main()
         ProcessUngroupedData(data, n);
         break;
     case 2:
+        // need input with direct scores and frequencies, not raw data
+        do
+        {
+            cout << "Enter the score : ";
+            cin >> score;
+            if (score == 000)
+            {
+                break;
+            }
+            else
+            {
+                bool found = false;
+
+                for (int i = 0; i < n; i++)
+                {
+                    if (data[i].classValue == score)
+                    {
+                        data[i].frequency++;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    data[n].classValue = score;
+                    data[n].frequency = 1;
+                    n++;
+                }
+            }
+        } while (score != 000);
+
+        groupedData(data, data2, n);
+        break;
+    case 3:
         do
         {
             cout << "Enter the score : ";
@@ -477,7 +513,7 @@ int main()
 
         break;
 
-    case 3:
+    case 4:
         do
         {
             cout << "Enter the start class : ";
